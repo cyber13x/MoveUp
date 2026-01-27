@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MoveUp | Entrenament Personal i Grupal</title>
+    <!-- Importar font esportiva moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES D'ESTIL (Premium Dark Mode) --- */
+        :root {
+            --bg-color: #050505;
+            --text-color: #f0f0f0;
+            --text-muted: #a0a0a0;
+
+            /* Colors MoveUp - Neon Palette */
+            --primary-color: #00F0FF;
+            --accent-green: #00FF94;
+            --accent-purple: #BC13FE;
+
+            /* Glassmorphism Tokens */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-card-bg: rgba(20, 20, 20, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(16px);
+
+            --glow-primary: 0 0 20px rgba(0, 240, 255, 0.3);
+            --glow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- RESET I BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 300;
+            /* Lighter weight for premium feel */
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- UTILITATS --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            /* Larger */
+            text-transform: uppercase;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: 4px;
+            /* More spacing */
+            position: relative;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(90deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            /* Minimalist underline */
+            height: 4px;
+            background: var(--primary-color);
+            margin: 15px auto 0;
+            box-shadow: var(--glow-primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #fff;
+            /* Brighter than muted */
+            font-size: 1.15rem;
+            /* Larger */
+            font-weight: 400;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- ANIMACIONS PREMIUM --- */
+        .reveal-basic {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-basic.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays for Grids */
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-500 {
+            transition-delay: 0.5s;
+        }
+
+        .delay-600 {
+            transition-delay: 0.6s;
+        }
+
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+            margin: 0;
+            width: 100%;
+            opacity: 0.5;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background-color: rgba(5, 5, 5, 0.7);
+            backdrop-filter: var(--glass-blur) saturate(180%);
+            -webkit-backdrop-filter: var(--glass-blur) saturate(180%);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Underline animation for nav */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+            box-shadow: var(--glow-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        #inici {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- QUI SOM --- */
+        #quisom {
+            padding: 120px 0;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+
+        #quisom::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-color);
+            opacity: 0.03;
+            filter: blur(100px);
+            border-radius: 50%;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .philo-card {
+            background: var(--glass-card-bg);
+            backdrop-filter: var(--glass-blur);
+            padding: 50px 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .philo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .philo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--glass-highlight);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .philo-card:hover::before {
+            opacity: 1;
+        }
+
+        .philo-card h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .philo-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            margin-right: 15px;
+            border-radius: 50%;
+            box-shadow: var(--glow-primary);
+        }
+
+        .philo-card p,
+        .philo-card ul {
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- SERVEIS (GRID) --- */
+        #serveis {
+            padding: 100px 0;
+            background-color: var(--bg-color);
+            /* Unified dark background */
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--glass-card-bg);
+            /* Use glass base */
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--glow-primary), 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px);
+            z-index: 10;
+        }
+
+        .service-img {
+            height: 200px;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Imatges placeholder */
+        .s1 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .s2 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .s3 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .s4 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .s5 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .s6 .service-img {
+            background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        }
+
+        .service-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 30px;
+            border: 1px solid var(--primary-color);
+            backdrop-filter: blur(5px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .service-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            margin-top: auto;
+            letter-spacing: -0.5px;
+        }
+
+        .click-hint {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        /* --- MODAL (DETALL DEL SERVEI) --- */
+        .modal {
+            display: none;
+            /* Amagat per defecte */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            /* This should allow scrolling on the modal container */
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            padding-bottom: 50px;
+            /* Ensure space for scrolling */
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scroll on mobile */
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            /* Fallback */
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            margin: 5% auto;
+            margin-bottom: 50px;
+            /* Ensure content pushes bounds */
+            width: 80%;
+            max-width: 1000px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            position: relative;
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: var(--primary-color);
+        }
+
+        .modal-header-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .detail-section h4 {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .detail-section p,
+        .detail-section li {
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .detail-price {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(0, 0, 0, 0));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
+        }
+
+        .detail-price span {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* --- OFERTES --- */
+        #ofertes {
+            padding: 80px 0;
+            background-color: var(--bg-color);
+            /* Unified dark background */
+            border-top: 2px solid var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .offers-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .offer-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--accent-green);
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .offer-badge h3 {
+            font-size: 2rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+
+        .offer-badge h4 {
+            font-size: 1.2rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* --- VLOG (TASCA 3) --- */
+        #blog {
+            padding: 100px 0;
+        }
+
+        .vlog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .vlog-entry {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            /* Añadido borde sutil */
+        }
+
+        .video-wrapper {
+            width: 100%;
+            height: 250px;
+            /* Altura aumentada para mejor visualización del placeholder */
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Estilo para el espacio vacío/placeholder */
+        .video-placeholder-box {
+            width: 90%;
+            height: 80%;
+            border: 2px dashed #444;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+        }
+
+        .video-placeholder-box span {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .video-placeholder-box p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Imatge eliminada del VLOG, només queda el background negre i l'icona */
+        .video-wrapper img {
+            display: none;
+        }
+
+        .vlog-info {
+            padding: 20px;
+        }
+
+        .vlog-info h4 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        /* .vlog-info span { font-size: 0.8rem; color: var(--primary-color); text-transform: uppercase; font-weight: bold;} - Eliminado para dejarlo limpio */
+
+        /* --- CONTACTE --- */
+        #contacte {
+            padding: 100px 0;
+            background-color: var(--bg-color);
+            /* Unified dark background */
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .contact-details p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        form input:focus,
+        form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--bg-color);
+            /* Unified dark background */
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            /* Modals wider on mobile */
+            .modal-content {
+                width: 95%;
+                margin: 15% auto;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-header-img {
+                height: 200px;
+            }
+
+            .modal-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            /* Contact form stack */
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            /* Vlog Grid Adjustment */
+            .vlog-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* --- LIGHTBOX STYLES --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 95vw;
+            max-height: 95vh;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .lightbox-content img {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+
+        .lightbox-close:hover {
+            background: var(--primary-color);
+            color: #000;
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+    <!-- Add Scroll Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.15, // A bit higher to ensure element is actually entering
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before bottom
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Run once
+                    }
+                });
+            }, observerOptions);
+
+            // 1. General Section Titles & Text
+            const validSelectors = [
+                '.section-title',
+                // '.hero-content p', /* Removed to handle manually in Hero Sequence */
+                // '.hero-content .btn', /* Removed to handle manually in Hero Sequence */
+                '#quisom > .container > p', /* Intro text */
+                '#serveis > .container > p',
+                '#blog > .container > p',
+                '.contact-layout', /* Contact form container */
+            ];
+
+            validSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.classList.add('reveal-basic');
+                    observer.observe(el);
+                });
+            });
+
+            // 2. Grids with Staggered Animation
+            // We find the grids, then map their children to add delays
+            const grids = [
+                { parent: '.philosophy-grid', child: '.philo-card' },
+                { parent: '.services-grid', child: '.service-card' },
+                { parent: '.offers-container', child: '.offer-badge' },
+                { parent: '.vlog-grid', child: '.vlog-entry' }
+            ];
+
+            grids.forEach(gridDef => {
+                const parent = document.querySelector(gridDef.parent);
+                if (parent) {
+                    const children = parent.querySelectorAll(gridDef.child);
+                    children.forEach((child, index) => {
+                        child.classList.add('reveal-basic');
+                        // Cycle delays: 100, 200, 300...
+                        const delay = (index % 5) * 100 + 100; // 100ms, 200ms...
+                        child.style.transitionDelay = `${delay}ms`;
+                        observer.observe(child);
+                    });
+                }
+            });
+
+            // Special: Hero Section Sequence (Title, P, Button)
+            const heroElements = [
+                document.querySelector('.hero-content h1'),
+                document.querySelector('.hero-content p'),
+                document.querySelector('.hero-content .btn')
+            ];
+
+            heroElements.forEach((el, index) => {
+                if (el) {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(40px)'; // A bit more distance for drama
+                    el.style.transition = 'all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
+
+                    // Stagger: 300ms start, then + 200ms for each next item
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 300 + (index * 200));
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <!-- MENÚ DE NAVEGACIÓ -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    MOVE<span>UP</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inici">Inici</a></li>
+                    <li><a href="#quisom">Qui Som</a></li>
+                    <li><a href="#serveis">Serveis</a></li>
+                    <li><a href="#ofertes">Promocions Especials</a></li>
+                    <li><a href="#blog" style="color:var(--accent-green);">VLOG</a></li>
+                    <li><a href="#contacte">Contacte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO / PORTADA -->
+    <section id="inici">
+        <div class="container hero-content">
+            <div>
+                <h1>Entrenaments per tornar a <br><span class="text-gradient">Gaudir de l'Esport</span></h1>
+                <p>Oblida l'estrès i recupera la teva millor versió amb l'equip de MoveUp. Sigui quin sigui el teu
+                    nivell.</p>
+                <a href="#serveis" class="btn">Veure Catàleg</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUI SOM (TASCA 1 - Filosofia) -->
+    <section id="quisom">
+        <div class="container">
+            <h2 class="section-title">La Nostra Filosofia</h2>
+            <p class="section-subtitle">
+                Liderats pels Coachs Lawrence Aduku i Gabriel Joita, la nostra missió és ser
+                l'acompanyament professional i motivacional que necessites.
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philo-card">
+                    <h3>Missió</h3>
+                    <p>Facilitar a qualsevol persona iniciar-se o reprendre l'activitat física, garantint resultats
+                        segurs i sostenibles mitjançant un suport constant.</p>
+                </div>
+                <div class="philo-card">
+                    <h3>Visió</h3>
+                    <p>Ser el referent en coaching esportiu i benestar, oferint solucions adaptades a totes les etapes
+                        de la vida, des dels més joves fins als sèniors.</p>
+                </div>
+                <div class="philo-card">
+                    <h3>Valors</h3>
+                    <ul>
+                        <li>★ <strong>Motivació:</strong> Compromís per evitar l'abandonament.</li>
+                        <li>★ <strong>Personalització:</strong> Adaptació total al teu nivell.</li>
+                        <li>★ <strong>Companyonia:</strong> Fomentar la integració social.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- QUÈ OFERIM (TASCA 2 - 6 Serveis) -->
+    <section id="serveis">
+        <div class="container">
+            <h2 class="section-title">Què Oferim</h2>
+            <p class="section-subtitle">Fes clic a qualsevol targeta per veure'n tots els detalls.</p>
+            <div class="services-grid">
+
+                <!-- 1. MoveUp Training Pack -->
+                <div class="service-card s1" onclick="openModal('modal1')">
+                    <div class="service-img">
+                        <span class="service-tag">Joves 12-25</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>MoveUp Training Pack</h3>
+                            <p>Entrenaments setmanals en grup outdoor.</p>
+                        </div>
+                        <div class="price">19,99 €/mes</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+                <!-- 2. Personal Coaching -->
+                <div class="service-card s2" onclick="openModal('modal2')">
+                    <div class="service-img">
+                        <span class="service-tag">Individual</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>Personal Coaching</h3>
+                            <p>Sessió 1:1 guiada per un coach.</p>
+                        </div>
+                        <div class="price">Des de 19,99 €</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+                <!-- 3. Senior Active -->
+                <div class="service-card s3" onclick="openModal('modal3')">
+                    <div class="service-img">
+                        <span class="service-tag">+65 Anys</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>MoveUp Senior Active</h3>
+                            <p>Entrenament de baix impacte.</p>
+                        </div>
+                        <div class="price">29,99 €/mes</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+                <!-- 4. Corporate Wellness -->
+                <div class="service-card s4" onclick="openModal('modal4')">
+                    <div class="service-img">
+                        <span class="service-tag">Empreses</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>Corporate Wellness</h3>
+                            <p>Programes de benestar laboral.</p>
+                        </div>
+                        <div class="price">A mida</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+                <!-- 5. Nutrition Guide -->
+                <div class="service-card s5" onclick="openModal('modal5')">
+                    <div class="service-img">
+                        <span class="service-tag">Nutrició</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>MoveUp Nutrition Guide</h3>
+                            <p>Assessorament dietètic.</p>
+                        </div>
+                        <div class="price">39,99 € inici</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+                <!-- 6. Workshops -->
+                <div class="service-card s6" onclick="openModal('modal6')">
+                    <div class="service-img">
+                        <span class="service-tag">Tallers</span>
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <h3>Specialized Workshops</h3>
+                            <p>Tallers intensius de cap de setmana.</p>
+                        </div>
+                        <div class="price">15 € / taller</div>
+                        <div class="click-hint">+ Veure Detalls</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FINESTRES MODALS (HIDDEN POPUPS) -->
+
+    <!-- Modal 1: Training Pack -->
+    <div id="modal1" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+            <!-- NOVA IMATGE: Grup d'entrenament outdoor -->
+            <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Training Pack" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">MoveUp Training Pack</h2>
+                <p><strong>Descripció:</strong> Un programa complet d'entrenament funcional a l'aire lliure, dissenyat
+                    específicament per a joves de 12 a 25 anys. Combinem la millora de la condició física amb la
+                    diversió i el companyerisme, creant un hàbit esportiu saludable i sostenible.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Sessions dinàmiques de 60 minuts dirigides per un coach expert.</li>
+                            <li>• Flexibilitat d'assistència: opcions de 2 o 3 dies per setmana.</li>
+                            <li>• Entorn natural (Outdoor) utilitzant el propi cos, TRX, kettlebells i material
+                                funcional, evitant la monotonia del gimnàs.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Augment significatiu de la força, resistència i energia vital.</li>
+                            <li>• Reducció de l'estrès acadèmic/laboral i millora del descans.</li>
+                            <li>• Ambient de grup motivador que fomenta la constància i noves amistats.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Preu Quota</p>
+                            <span>19,99 €/mes</span>
+                            <small>(2 sessions/setmana)</small>
+                            <br><br>
+                            <button class="btn">Reservar Plaça</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Personal Coaching -->
+    <div id="modal2" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Personal Coaching" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">Move Up Personal Coaching</h2>
+                <p><strong>Descripció:</strong> L'experiència més exclusiva i efectiva de MoveUp. Un entrenador personal
+                    dedicat 100% a tu, dissenyant cada sessió segons els teus objectius específics, limitacions i
+                    preferències. Ideal per a qui busca resultats ràpids, segurs o readaptació de lesions.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Planificació a mida: avaluació inicial i disseny d'un pla progressiu únic per a tu.
+                            </li>
+                            <li>• Supervisió tècnica constant: assegurem la correcta execució d'exercicis per evitar
+                                riscos.</li>
+                            <li>• Flexibilitat horària total i adaptació diària segons el teu estat de forma.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Assoliment d'objectius (pèrdua de pes, guany muscular, rendiment) de la forma més
+                                eficient.</li>
+                            <li>• Aprenentatge profund de la tècnica i consciència corporal.</li>
+                            <li>• Motivació extra: el teu coach no et deixarà rendir-te.</li>
+                            <li>• Integració progressiva a grups MoveUp si es desitja.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Sessió Individual</p>
+                            <span>19,99 €</span>
+                            <br>
+                            <p style="margin-top:10px; border-top:1px solid #444; padding-top:10px;">
+                                Pack 4 sessions: <strong>69 €</strong><br>
+                                Pack 8 sessions: <strong>119 €</strong>
+                            </p>
+                            <p style="color:var(--accent-green); font-weight:bold;">★ Promoció Primera Sessió: 9,99 €
+                            </p>
+                            <button class="btn" style="margin-top:10px;">Reservar Coach</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Senior Active -->
+    <div id="modal3" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal3')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Senior Active" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">MoveUp Senior Active</h2>
+                <p><strong>Descripció:</strong> Un programa especialitzat en l'envelliment actiu i saludable. Ens
+                    centrem en millorar la qualitat de vida mitjançant l'exercici controlat, ajudant a mantenir
+                    l'autonomia i la vitalitat en un ambient segur i acollidor per a majors de 65 anys.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Sessions de 45 minuts de baix impacte articular, prioritzant la seguretat.</li>
+                            <li>• Exercicis de força funcional, mobilitat i coordinació amb material adaptat.</li>
+                            <li>• Grups reduïts en entorns naturals i tranquils per garantir l'atenció.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Prevenció de la pèrdua de massa muscular i òssia.</li>
+                            <li>• Millora de l'estabilitat i l'equilibri, reduint el risc de caigudes.</li>
+                            <li>• Socialització activa: un espai per compartir i divertir-se fent salut.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Preu Quota</p>
+                            <span>29,99 €/mes</span>
+                            <small>(2 sessions/setmana)</small>
+                            <br><br>
+                            <button class="btn">Més Informació</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Corporate Wellness -->
+    <div id="modal4" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal4')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Corporate" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">MoveUp Corporate Wellness</h2>
+                <p><strong>Descripció:</strong> Transformem l'ambient laboral a través de l'esport. Dissenyem
+                    estratègies de benestar integral per a empreses que entenen que un equip saludable és un equip més
+                    feliç, productiu i cohesionat. Portem l'energia de MoveUp a la teva oficina.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Plans 100% adaptats a la cultura i espais de l'empresa (In-company, outdoor o online).
+                            </li>
+                            <li>• Activitats variades: Pauses actives, Correcció postural, Mindfulness i Clubs de
+                                Corredors.</li>
+                            <li>• Jornades de Team Building esportiu per potenciar el treball en equip.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Disminució de les baixes laborals per dolors d'esquena i estrès.</li>
+                            <li>• Augment del compromís (engagement) i sentiment de pertinença dels treballadors.</li>
+                            <li>• Millora del clima laboral i increment de la creativitat.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Pressupost</p>
+                            <span>A MIDA</span>
+                            <small>Segons nº empleats i paquet</small>
+                            <br><br>
+                            <button class="btn">Demanar Pressupost</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Nutrition Guide -->
+    <div id="modal5" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal5')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Nutrition" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">MoveUp Nutrition Guide</h2>
+                <p><strong>Descripció:</strong> No creiem en dietes restrictives, sinó en aprendre a nodrir-se. El
+                    nostre servei de nutrició t'ensenya a menjar de manera flexible i adaptada al teu ritme de vida i
+                    entrenament, per potenciar la teva salut i rendiment sense passar gana.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Anàlisi completa de la composició corporal, hàbits i preferències.</li>
+                            <li>• Menús setmanals i pautes nutricionals sostenibles a llarg termini.</li>
+                            <li>• Educació nutricional: aprèn a escollir els millors aliments.</li>
+                            <li>• Seguiment continu per ajustar el pla i resoldre dubtes.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Optimització del rendiment esportiu i la recuperació muscular.</li>
+                            <li>• Gestió eficaç del pes corporal de forma saludable.</li>
+                            <li>• Millora de la digestió, la qualitat del son i els nivells d'energia.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Sessió Inicial</p>
+                            <span>39,99 €</span>
+                            <br>
+                            <p>+ Seguiment: <strong>25 €/mes</strong></p>
+                            <br>
+                            <button class="btn">Començar Pla</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Workshops -->
+    <div id="modal6" class="modal" data-lenis-prevent>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal6')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="Workshops" class="modal-header-img">
+            <div class="modal-body">
+                <h2 class="modal-title">Specialized Workshops</h2>
+                <p><strong>Descripció:</strong> Formacions pràctiques i intensives de cap de setmana dissenyades per
+                    aprofundir en aspectes concrets de l'entrenament. Ideals per a qui vol perfeccionar la tècnica,
+                    aprendre noves disciplines o superar estancaments amb l'ajuda d'especialistes.</p>
+
+                <div class="modal-grid">
+                    <div class="detail-section">
+                        <h4>Característiques</h4>
+                        <ul>
+                            <li>• Masterclasses de 90 a 120 minuts monogràfiques.</li>
+                            <li>• Temàtiques rotatives: Tècnica de Cursa, Força bàsica, Cal·listènia, Mobilitat, etc.
+                            </li>
+                            <li>• Grups molt reduïts per garantir la correcció pràctica individual.</li>
+                        </ul>
+                        <br>
+                        <h4>Beneficis</h4>
+                        <ul>
+                            <li>• Salt qualitatiu en la teva tècnica gràcies a l'atenció al detall.</li>
+                            <li>• Prevenció de lesions futures mitjançant l'aprenentatge de la biomecànica.</li>
+                            <li>• Trencar la rutina d'entrenament descobrint noves eines i reptes.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-price">
+                            <p>Preu per Taller</p>
+                            <span>15 €</span>
+                            <small>(Clients)</small>
+                            <br>
+                            <p>No clients: <strong>25 €</strong></p>
+                            <br>
+                            <button class="btn">Inscriure's</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal VLOG 1: Training Pack Video -->
+    <div id="modalVlog1" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <span class="close-btn" onclick="closeModal('modalVlog1')">&times;</span>
+            <!-- Header Image -->
+            <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="MoveUp Training Pack" class="modal-header-img">
+
+            <div class="modal-body">
+                <h2 class="modal-title" style="font-size: 2rem;">VLOG: TRAINING PACK</h2>
+
+                <!-- Video Embedded in Body -->
+                <div
+                    style="position: relative; padding-bottom: 56.25%; height: 0; background: #000; margin-bottom: 25px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+                    <iframe src="https://drive.google.com/file/d/15UwKBSgw4JJQbmnhJV65fOMDDALvbs2p/preview"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        allow="autoplay; encrypted-media" allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">🔥 Més que un
+                        entrenament, una Comunitat.</h3>
+                    <p style="color: #ddd; margin-bottom: 20px; line-height: 1.6;">
+                        El <strong>MoveUp Training Pack</strong> està dissenyat per trencar amb la rutina sedentària i
+                        l'estrès dels estudis o la feina.
+                        No és només fer exercici; és compartir l'esforç amb gent de la teva edat en un entorn on tothom
+                        suma.
+                    </p>
+
+                    <h4 style="color: #fff; margin-bottom: 10px; font-size: 1.1rem;">Què t'emportes?</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">✅ <strong>Ambient Jove (12-25
+                                anys):</strong> Entrena amb gent que comparteix els teus objectius.</li>
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">✅ <strong>Dinàmica Outdoor:</strong>
+                            Aire lliure, sol i desconnexió total de les pantalles.</li>
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">✅ <strong>Resultats Reals:</strong>
+                            Millora la teva força i resistència sense avorrir-te.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 25px; align-items: center;">
+                    <a href="#contacte" class="btn" onclick="closeModal('modalVlog1')">Vull Provar-ho GRATIS</a>
+                    <p style="font-size: 0.9rem; color: #888;">*Places limitades per grup.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal VLOG 2: Personal Coaching Video -->
+    <div id="modalVlog2" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <span class="close-btn" onclick="closeModal('modalVlog2')">&times;</span>
+            <!-- Header Image -->
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                alt="MoveUp Training Pack" class="modal-header-img">
+
+            <div class="modal-body">
+                <h2 class="modal-title" style="font-size: 2rem;">VLOG: PERSONAL COACHING</h2>
+
+                <!-- Video Embedded in Body -->
+                <div
+                    style="position: relative; padding-bottom: 56.25%; height: 0; background: #000; margin-bottom: 25px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+                    <iframe src="https://drive.google.com/file/d/1jwNG7irH4eR_6N8EAJRIksm4HYgB2k5a/preview"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        allow="autoplay; encrypted-media" allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid var(--accent-green);">
+                    <h3 style="color: var(--accent-green); margin-bottom: 15px; font-size: 1.3rem;">🎯 El camí més ràpid
+                        cap al teu objectiu.</h3>
+                    <p style="color: #ddd; margin-bottom: 20px; line-height: 1.6;">
+                        El <strong>Personal Coaching</strong> és la inversió definitiva en tu mateix. Si sents que
+                        t'estanques, tens por de lesionar-te o necessites algú que et "penyi" cap endavant, aquest és el
+                        teu lloc.
+                        Aquí no ets un número, ets el centre de cada sessió.
+                    </p>
+
+                    <h4 style="color: #fff; margin-bottom: 10px; font-size: 1.1rem;">Per què triar un Coach Personal?
+                    </h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">🚀 <strong>100%
+                                Personalitzat:</strong> Adaptem cada exercici a la teva anatomia i necessitats.</li>
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">🛡️ <strong>Seguretat Total:</strong>
+                            Correcció tècnica constant per evitar molèsties.</li>
+                        <li style="margin-bottom: 10px; color: var(--text-muted);">🧠 <strong>Mentalitat
+                                Guanyadora:</strong> Treballem la teva confiança i disciplina.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 25px; align-items: center;">
+                    <a href="#contacte" class="btn"
+                        style="border-color: var(--accent-green); color: var(--accent-green);"
+                        onclick="closeModal('modalVlog2')">Reservar Entrevista Inicial</a>
+                    <p style="font-size: 0.9rem; color: #888;">*Primera sessió a preu reduït.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- OFERTES -->
+    <section id="ofertes">
+        <div class="container">
+            <h2 class="section-title">Promocions Especials</h2>
+
+            <!-- Servei Gabriel Joita -->
+            <div style="margin-bottom: 60px;">
+                <h3
+                    style="text-align: center; color: var(--primary-color); font-size: 1.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px;">
+                    📋 Servei Gabriel Joita
+                </h3>
+                <div class="offers-container"
+                    style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
+                    <div style="width: 100%; max-width: 600px;">
+                        <img src="images/promo-inauguracion.jpg" alt="Gran Inauguració MoveUp - Obrim Portes"
+                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,240,255,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;"
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,240,255,0.5)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,240,255,0.3)';"
+                            onclick="openLightbox(this.src)">
+                    </div>
+                    <div style="width: 100%; max-width: 600px;">
+                        <img src="images/promo-training-pack.jpg" alt="MoveUp Training Pack - Primer Mes 50% Descompte"
+                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,240,255,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;"
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,240,255,0.5)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,240,255,0.3)';"
+                            onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Servei Lawrence Aduku -->
+            <div style="margin-bottom: 30px;">
+                <h3
+                    style="text-align: center; color: var(--accent-green); font-size: 1.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px;">
+                    💪 Servei Lawrence Aduku
+                </h3>
+                <div class="offers-container"
+                    style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
+                    <div style="width: 100%; max-width: 600px;">
+                        <img src="images/promo-lawrence-momento.jpg" alt="El Moment és Ara - Lawrence Aduku"
+                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,255,100,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;"
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,255,100,0.5)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,255,100,0.3)';"
+                            onclick="openLightbox(this.src)">
+                    </div>
+                    <div style="width: 100%; max-width: 600px;">
+                        <img src="images/promo-lawrence-obre-portes.jpg"
+                            alt="MoveUp Obre les Seves Portes - 40% OFF - Lawrence Aduku"
+                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,255,100,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;"
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,255,100,0.5)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,255,100,0.3)';"
+                            onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: var(--accent-yellow);">* Proves gratuïtes disponibles
+                un dia a la setmana!</p>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- BLOG / VLOG (TASCA 3) -->
+    <section id="blog">
+        <div class="container">
+            <h2 class="section-title">VLOG: Novetats MoveUp</h2>
+            <p class="section-subtitle">Descobreix les nostres últimes notícies i consells.</p>
+
+            <div class="vlog-grid">
+
+                <!-- Espacio Video 1 (Actualizado: Thumbnail) -->
+                <div class="vlog-entry" onclick="openModal('modalVlog1')"
+                    style="cursor: pointer; transition: transform 0.3s ease;">
+                    <div class="video-wrapper"
+                        style="padding:0; background:black; position: relative; overflow: hidden; aspect-ratio: 16/9;">
+                        <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            alt="Training Pack Vlog"
+                            style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s;">
+
+                        <!-- Play Icon Wrapper -->
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-color); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); backdrop-filter: blur(4px);">
+                            <div
+                                style="width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid #fff; margin-left: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vlog-info">
+                        <h4 style="display: flex; align-items: center; justify-content: space-between;">
+                            MoveUp Training Pack <span style="font-size: 0.8rem; color: var(--primary-color);">VEURE
+                                VIDEO ▶</span>
+                        </h4>
+                    </div>
+                </div>
+
+                <!-- Espacio Video 2 (Actualizado: Thumbnail) -->
+                <div class="vlog-entry" onclick="openModal('modalVlog2')"
+                    style="cursor: pointer; transition: transform 0.3s ease;">
+                    <div class="video-wrapper"
+                        style="padding:0; background:black; position: relative; overflow: hidden; aspect-ratio: 16/9;">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            alt="Personal Coaching Vlog"
+                            style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s;">
+
+                        <!-- Play Icon Wrapper -->
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-color); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); backdrop-filter: blur(4px);">
+                            <div
+                                style="width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid #fff; margin-left: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vlog-info">
+                        <h4 style="display: flex; align-items: center; justify-content: space-between;">
+                            MoveUp Personal Coaching <span style="font-size: 0.8rem; color: var(--primary-color);">VEURE
+                                VIDEO ▶</span>
+                        </h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CONTACTE -->
+    <section id="contacte">
+        <div class="container">
+            <h2 class="section-title">Contacta amb Nosaltres</h2>
+            <div class="contact-layout">
+                <div class="contact-details">
+                    <h3>📍 On et trobarem?</h3>
+                    <p>Entrenem als principals parcs de la ciutat i tenim oficina a:</p>
+                    <p style="color: #fff;">Carrer de l'Esport, 123<br>08000, Barcelona</p>
+                    <br>
+                    <h3>📞 Parlem?</h3>
+                    <p style="color: var(--primary-color); font-size: 1.2rem; font-weight: bold;">+34 123 456 789</p>
+                    <p>info@moveup.com</p>
+                    <br>
+                    <h3>🕒 Horaris</h3>
+                    <p>Dilluns - Divendres: 08:00 - 20:00</p>
+                    <p>Dissabte: 09:00 - 14:00</p>
+                </div>
+
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="El teu Nom" required>
+                        <input type="email" placeholder="El teu Email" required>
+                        <textarea rows="5" placeholder="Com et podem ajudar?" required></textarea>
+                        <button type="submit" class="btn">Enviar Missatge</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div id="imageLightbox" class="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightboxImage" src="" alt="Promoció en gran">
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 MoveUp. Tots els drets reservats.</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Entrenament personalitzat per assolir les teves fites.</p>
+        </div>
+    </footer>
+
+    <!-- JS for Lightbox -->
+    <script>
+        // Open Lightbox
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Stop Lenis if exists
+            if (window.lenis) window.lenis.stop();
+        }
+
+        // Close Lightbox
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Resume Lenis if exists
+            if (window.lenis) window.lenis.start();
+        }
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- JS for Modals -->
+    <script>
+        // Open Modal
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+            // Stop Lenis when modal is open
+            if (window.lenis) window.lenis.stop();
+        }
+
+        // Close Modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            stopVideo(modal); // Stop video
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+            // Resume Lenis when modal is closed
+            if (window.lenis) window.lenis.start();
+        }
+
+        // Close clicking outside
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                stopVideo(event.target); // Stop video
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+                // Resume Lenis when modal is closed
+                if (window.lenis) window.lenis.start();
+            }
+        }
+
+        // Helper to stop video in modal
+        function stopVideo(modal) {
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                const tempSrc = iframe.src;
+                iframe.src = '';
+                iframe.src = tempSrc;
+            }
+        }
+    </script>
+
+    <!-- Lenis Library for Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4x87
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            // Make lenis global for other scripts (like modals) to access
+            window.lenis = lenis;
+
+            // RAF loop
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+
+            // Handle Anchor Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return; // Ignore empty anchors
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        lenis.scrollTo(targetElement);
+                    }
+                });
+            });
+
+            // Logo Premium Scroll to Top
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    lenis.scrollTo(0, {
+                        duration: 2.0, // Adjusted speed (faster)
+                        easing: (t) => 1 - Math.pow(1 - t, 4) // Quartic easing for "drag" feel
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
